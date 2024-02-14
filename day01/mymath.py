@@ -1,3 +1,4 @@
+import time
 # def factorial(number) -> int:
 #     """
 #     factorial by repetition
@@ -9,14 +10,23 @@
 #         result = result * i
 #     return result
 
+def timer(func):
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        result = func(*args, **kwargs)
+        end = time.time()
+        print(f'소요시간: {end - start}')
+        return result
+    return wrapper
+
 def factorial(number) -> int:
     if number == 1:
         return 1
     else:
         return number * factorial(number-1)
 
-
-def nCr(n, r) -> int:
+@timer
+def nCr(n, r) -> int: # SRP, OCP violation
     """
     조합 함수
     :param n:
@@ -27,3 +37,10 @@ def nCr(n, r) -> int:
     denominator = factorial(n-r) * factorial(r)
 
     return numerator / denominator
+
+
+print(globals())
+if __name__ == '__main__':
+    print("메인")
+else:
+    print("서브")
