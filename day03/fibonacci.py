@@ -25,7 +25,9 @@ def fibo_repetition(number: int) -> int:
     return a
 
 
-memo = [None for _ in range(100)]
+
+memo = [0 if i == 0 else 1 if i ==1 else None for i in range(100)]
+# memo = [0, 1] + [None] * (100-1)
 def fibo_memoization(number: int, memo: list) -> int:
     """
     fibonacci function by recursion with memoization.
@@ -34,11 +36,10 @@ def fibo_memoization(number: int, memo: list) -> int:
     """
     if memo[number] is not None:
         return memo[number]
-    if number < 2:
-        result = number
-    else:
-        result = fibo_memoization(number-1, memo) + fibo_memoization(number-2, memo)
-        memo[number] = result
+
+    result = fibo_memoization(number-1, memo) + fibo_memoization(number-2, memo)
+    memo[number] = result
+
     return result
 
 
@@ -48,11 +49,11 @@ n = int(input("Input number : "))
 for i in range(0, n):
     print(i)
     print(fibo_memoization(i, memo))
-print("===========================")
-for i in range(0, n):
-    print(i)
-    print(fibo_recursion(i))
-print("===========================")
-for i in range(0, n):
-    print(i)
-    print(fibo_repetition(i))
+# print("===========================")
+# for i in range(0, n):
+#     print(i)
+#     print(fibo_recursion(i))
+# print("===========================")
+# for i in range(0, n):
+#     print(i)
+#     print(fibo_repetition(i))
